@@ -22,6 +22,9 @@ PyAlias is a Command Line Interface (CLI) program built with Typer, designed for
 - `pyalias read <alias>`: Read an alias
 - `pyalias paths`: Get the program paths
 - `pyalias install`: Install the program
+- `pyalias export`: Export all aliases to a .TXT file
+- `pyalias import <file>`: Import aliases from a .TXT file
+
 
 ## Examples
 - `pyalias new ls dir /b`: Create a new alias with the name "ls" and the command "dir /b"

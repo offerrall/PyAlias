@@ -3,6 +3,7 @@ from pathlib import Path
 from Code.get_config import get_config
 from Code.crud_alias import create_alias, get_alias, read_alias, delete_alias, update_alias
 from Code.add_environ import add_new_environ
+from configparser import ConfigParser
 
 PROGRAM_FOLDER = Path(__file__).resolve().parent
 app = Typer()
@@ -89,6 +90,47 @@ def install():
         return
 
     print("pyAlias already installed")
+
+@app.command("export")
+def export():
+    '''Export the alias config to a file'''
+    name = "alias.txt"
+    alias = get_alias(config)
+    alias_config_file = ConfigParser()
+    alias_data = {"alias": {}}
+
+    for alia in alias:
+        alias_data["alias"][alia] = read_alias(alia, config)
+        
+    alias_config_file.read_dict(alias_data)
+    
+    with open(name, "w") as file:
+        alias_config_file.write(file)
+    
+    print(f"Created file: ./{name} (alias config)")
+
+@app.command("import")
+def import_alias(alias_file: str):
+    '''Import the alias config from a file'''
+    
+    alias_file = Path(alias_file)
+    if not alias_file.exists():
+        print(f"File not found: {alias_file}")
+        return
+    
+    atm_alias = get_alias(config)
+    alias_config_file = ConfigParser()
+    alias_config_file.read(alias_file)
+    alias = alias_config_file["alias"]
+    
+    for alia in alias:
+        if alia in atm_alias:
+            update_alias(alia, alias[alia], config)
+            continue
+        
+        create_alias(alia, alias[alia], config)
+    
+    print(f"Alias imported from {alias_file}")
     
 
 if __name__ == "__main__":
