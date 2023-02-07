@@ -43,7 +43,7 @@ Example:
 - You create an alias with the name "ls" and the command "dir"
 - A .TXT file is created in the folder {Program_path}\pyAlias\ with the name "ls" and the content "dir"
 - A copy of alias_launcher.exe is created in the folder {Program_path}\pyAlias\ and is assigned the name "ls"
-- When you run the "ls" command in the console, the file {Program_path}\pyAlias\ls.exe is executed
+- When you run the "ls" command in the console, the file {Program_path}\pyAlias\alias\ls.exe is executed
 - ls.exe reads its name and uses it to read the .TXT file with the same name and execute the command it contains.
 - ls.exe will also take its arguments and pass them to the command it contains.
 
