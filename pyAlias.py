@@ -8,6 +8,9 @@ PROGRAM_FOLDER = Path(__file__).resolve().parent
 app = Typer()
 config = get_config(PROGRAM_FOLDER)
 
+def create_main_alias():
+    create_alias("pyalias", f"python {PROGRAM_FOLDER}\\pyAlias.py", config)
+
 @app.command("new")
 def new(alias: str, command: list[str]):
     '''Create a new alias, EX: pyAlias new ls dir /b'''
@@ -81,7 +84,7 @@ def install():
     alias = add_new_environ(str(config['alias_folder']))
     
     if program and alias:
-        new("pyAlias", f"python {PROGRAM_FOLDER}\\pyAlias.py")
+        create_main_alias()
         print("pyAlias installed")
         return
 
