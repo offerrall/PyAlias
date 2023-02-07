@@ -9,8 +9,6 @@ PROGRAM_FOLDER = Path(__file__).resolve().parent
 app = Typer()
 config = get_config(PROGRAM_FOLDER)
 
-def create_main_alias():
-    create_alias("pyalias", f"python {PROGRAM_FOLDER}\\pyAlias.py", config)
 
 @app.command("new")
 def new(alias: str, command: list[str]):
@@ -81,19 +79,23 @@ def install():
     Folders: Program folder, Alias folder
     '''
     
+    pyalias_alias = "pyalias"
     program = add_new_environ(str(PROGRAM_FOLDER))
     alias = add_new_environ(str(config['alias_folder']))
-    
-    if program and alias:
-        create_main_alias()
-        print("pyAlias installed")
-        return
 
-    print("pyAlias already installed")
+    if not pyalias_alias in get_alias():
+        create_alias(pyalias_alias, f"python {PROGRAM_FOLDER}\\pyAlias.py", config)
+
+    response = "pyAlias already installed"
+    if program and alias:
+        response = "pyAlias installed"
+
+    print(response)
 
 @app.command("export")
 def export():
     '''Export the alias config to a file'''
+    
     name = "alias.txt"
     alias = get_alias(config)
     alias_config_file = ConfigParser()
