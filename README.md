@@ -14,7 +14,7 @@ PyAlias is a Command Line Interface (CLI) program built with Typer, designed for
 
 ## Commands
 
-- `pyalias help`: Show the program help
+- `pyalias --help`: Show the program help
 - `pyalias new <alias> <command>`: Create a new alias
 - `pyalias list`: List all aliases
 - `pyalias delete <alias>`: Delete an alias

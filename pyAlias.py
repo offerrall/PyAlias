@@ -10,7 +10,7 @@ app = Typer()
 config = get_config(PROGRAM_FOLDER)
 
 
-@app.command("new")
+@app.command("new", context_settings = {"ignore_unknown_options": True})
 def new(alias: str, command: list[str]):
     '''Create a new alias, EX: pyAlias new ls dir /b'''
     command = " ".join(command)
@@ -32,7 +32,7 @@ def list_alias():
         alias_data = read_alias(alia, config)
         print(f"- {alia} -> {alias_data}")
 
-@app.command("delete")
+@app.command("delete", context_settings = {"ignore_unknown_options": True})
 def delete(alias: str):
     '''Delete an alias, EX: pyAlias delete ls'''
     
@@ -42,7 +42,7 @@ def delete(alias: str):
     
     print(f"Alias not found: {alias}")
 
-@app.command("update")
+@app.command("update", context_settings = {"ignore_unknown_options": True})
 def update(alias: str, command: list[str]):
     '''Update an alias, EX: pyAlias update ls "dir /b"'''
     
