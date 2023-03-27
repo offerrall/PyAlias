@@ -6,7 +6,7 @@ from Code.add_environ import add_new_environ
 from configparser import ConfigParser
 
 PROGRAM_FOLDER = Path(__file__).resolve().parent
-app = Typer()
+app = Typer(add_completion = False)
 config = get_config(PROGRAM_FOLDER)
 
 
