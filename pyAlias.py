@@ -2,7 +2,7 @@ from typer import Typer
 from pathlib import Path
 from Code.get_config import get_config
 from Code.crud_alias import create_alias, get_alias, read_alias, delete_alias, update_alias
-from Code.add_environ import add_new_environ
+from Code.add_environ import check_path_in_environ, add_new_environ, delete_path_from_environ
 from configparser import ConfigParser
 
 PROGRAM_FOLDER = Path(__file__).resolve().parent
@@ -78,17 +78,45 @@ def install():
     '''
     
     pyalias_alias = "pyalias"
-    program = add_new_environ(str(PROGRAM_FOLDER))
-    alias = add_new_environ(str(config['alias_folder']))
+    program_path = str(PROGRAM_FOLDER)
+    alias_path = str(config['alias_folder'])
+
+    if check_path_in_environ(program_path):
+        print("Program path is already in PATH environment variable")
+    else:
+        if add_new_environ(program_path):
+            print("Added program path to PATH environment variable")
+
+    if check_path_in_environ(alias_path):
+        print("Alias path is already in PATH environment variable")
+    else:
+        if add_new_environ(alias_path):
+            print("Added alias path to PATH environment variable")
 
     if not pyalias_alias in get_alias(config):
         create_alias(pyalias_alias, f"python {PROGRAM_FOLDER}\\pyAlias.py", config)
 
-    response = "pyAlias already installed"
-    if program and alias:
-        response = "pyAlias installed"
 
-    print(response)
+@app.command("uninstall")
+def uninstall():
+    '''Remove the pyAlias folders from the PATH environment variable
+    '''
+    
+    program_path = str(PROGRAM_FOLDER)
+    alias_path = str(config['alias_folder'])
+
+    if check_path_in_environ(program_path):
+        if delete_path_from_environ(program_path):
+            print("Removed program path from PATH environment variable")
+    else:
+        print("Program path is not in PATH environment variable")
+
+    if check_path_in_environ(alias_path):
+        if delete_path_from_environ(alias_path):
+            print("Removed alias path from PATH environment variable")
+    else:
+        print("Alias path is not in PATH environment variable")
+
 
 @app.command("export")
 def export():
