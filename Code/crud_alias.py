@@ -29,7 +29,6 @@ def get_alias(config: dict) -> list[str]:
         list[str]: List of all the alias"""
     alias_files = []
     
-    print(config["alias_folder"])
     for file in listdir(config["alias_folder"]):
         if file.endswith(".exe"):
             alias_files.append(file.replace(".exe", ""))
@@ -85,9 +84,9 @@ def update_alias(alias: str, command: str, config: dict) -> bool:
     Returns:
         bool: True if the alias was updated, False if the alias does not exist"""
     
-    alias = get_alias(config)
+    alias_local = get_alias(config)
 
-    if not alias in alias:
+    if not alias in alias_local:
         return False
     
     delete_alias(alias, config)
