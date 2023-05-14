@@ -44,7 +44,7 @@ def delete(alias: str):
 
 @app.command("update", context_settings = {"ignore_unknown_options": True})
 def update(alias: str, command: list[str]):
-    '''Update an alias, EX: pyAlias update ls "dir /b"'''
+    '''Update an alias, EX: pyAlias update ls dir /b'''
     
     command = " ".join(command)
     if update_alias(alias, command, config):
@@ -75,15 +75,13 @@ def get_paths():
 @app.command("install")
 def install():
     '''Put the pyAlias folders in the PATH environment variable
-    Update the console to use
-    Folders: Program folder, Alias folder
     '''
     
     pyalias_alias = "pyalias"
     program = add_new_environ(str(PROGRAM_FOLDER))
     alias = add_new_environ(str(config['alias_folder']))
 
-    if not pyalias_alias in get_alias():
+    if not pyalias_alias in get_alias(config):
         create_alias(pyalias_alias, f"python {PROGRAM_FOLDER}\\pyAlias.py", config)
 
     response = "pyAlias already installed"

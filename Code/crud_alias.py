@@ -29,6 +29,7 @@ def get_alias(config: dict) -> list[str]:
         list[str]: List of all the alias"""
     alias_files = []
     
+    print(config["alias_folder"])
     for file in listdir(config["alias_folder"]):
         if file.endswith(".exe"):
             alias_files.append(file.replace(".exe", ""))
