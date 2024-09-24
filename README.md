@@ -4,9 +4,14 @@ PyAlias is a Command Line Interface (CLI) program built with Typer, designed for
 
 ## Installation
 
-- Download the repository
+- Download the repository with: `git clone https://github.com/offerrall/PyAlias-Windows-Alias-Manager`
+- Put the repository folder in a location of your choice (e.g., `C:\Program Files\`)
+- Cd into the repository folder: `cd PyAlias-Windows-Alias-Manager`
 - Install dependencies with: `pip install -r requirements.txt`
+- Compile alias_launcher.c with gcc: `gcc alias_launcher.c -o alias_launcher.exe`
 - Install the program with: `python pyAlias.py install`
+
+Install put the program in the PATH, allowing you to run it from any directory.
 
 ## Uninstallation
 
